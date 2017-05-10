@@ -6,13 +6,12 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
 @prefix jdbc: <http://d2rq.org/terms/jdbc/> .
-@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/core#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
 map:database a d2rq:Database;
 	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
 	d2rq:jdbcDSN "jdbc:mysql://localhost:3306/nurcara";
 	d2rq:username "root";
-	d2rq:password "Shardana01";
+	d2rq:password "Han#Solo81";
 	jdbc:autoReconnect "true";
 	jdbc:zeroDateTimeBehavior "convertToNull";
 	.
@@ -21,7 +20,7 @@ map:database a d2rq:Database;
 map:documento a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "documento/@@documento.ID@@";
-	d2rq:class crm:E73.Information_Object;
+	d2rq:class vocab:documento;
 	d2rq:classDefinitionLabel "documento";
 	.
 map:documento__label a d2rq:PropertyBridge;
@@ -31,16 +30,16 @@ map:documento__label a d2rq:PropertyBridge;
 	.
 map:documento_ID a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
-	d2rq:property crm:P48.has_preferred_identifier;
+	d2rq:property vocab:documento_ID;
 	d2rq:propertyDefinitionLabel "documento ID";
 	d2rq:column "documento.ID";
 	d2rq:datatype xsd:integer;
 	.
 map:documento_Autore a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
-	d2rq:property foaf:name;
+	d2rq:property vocab:documento_Autore;
 	d2rq:propertyDefinitionLabel "documento Autore";
-	d2rq:uriPattern "documento/@@documento.Autore@@";
+	d2rq:column "documento.Autore";
 	.
 map:documento_anno a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
@@ -118,7 +117,7 @@ map:documento_LuogoEdizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
 	d2rq:property vocab:documento_LuogoEdizione;
 	d2rq:propertyDefinitionLabel "documento LuogoEdizione";
-	d2rq:uriPattern "documento/@@documento.LuogoEdizione@@";
+	d2rq:column "documento.LuogoEdizione";
 	.
 map:documento_Mese a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
@@ -152,9 +151,9 @@ map:documento_Rogatario a d2rq:PropertyBridge;
 	.
 map:documento_Titolo a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
-	d2rq:property crm:P102.has_title;
+	d2rq:property vocab:documento_Titolo;
 	d2rq:propertyDefinitionLabel "documento Titolo";
-	d2rq:uriPattern"documento/@@documento.Titolo@@";
+	d2rq:column "documento.Titolo";
 	.
 map:documento_ToponimiGenerali a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documento;
