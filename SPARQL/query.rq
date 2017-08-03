@@ -1,0 +1,19 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX vocab: <http://localhost:2020/resource/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX map: <http://localhost:2020/resource/#>
+PREFIX db: <http://localhost:2020/resource/>
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+
+
+#In D2RQ sparql endpoint don't copy the PREFIX. The're already in by default ;) .
+
+
+select ?event 
+where {?event crm:P7_took_place_at ?place.
+       ?place rdf:type crm:E53.Place;
+              crm:P1_is_identified_by ?appellation.
+       ?appellation rdf:type crm:E44.Place_Appellation;
+              crm:P90_has_value "Monteleone". }

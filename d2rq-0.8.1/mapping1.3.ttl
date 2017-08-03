@@ -26,28 +26,33 @@ map:autore a d2rq:ClassMap;
 	d2rq:classDefinitionLabel "author"@en;
 	.
 
-map:autore_id_autore 
-    rdf:type d2rq:PropertyBridge;
-	#d2rq:property rdfs:label;
+map:autore__label a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:autore;
-	d2rq:uriPattern  "resource/@@autore.id_autore@@";
+	d2rq:property rdfs:label;
+	d2rq:pattern "@@autore.autore@@";
+	.
+
+#E82.Actor_Appellation
+
+map:autore_autore a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:autore;
 	d2rq:property crm:P1_is_identified_by;
-	
+	d2rq:refersToClassMap map:autoreAppellation ;
+ 
 	.
 
 map:autoreAppellation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "resource/@@autore.id_autore@@";
+	d2rq:uriPattern "autore/appellation/@@autore.id_autore@@";
 	d2rq:class crm:E82.Actor_Appellation;
-	d2rq:classDefinitionLabel "author"@en;
+	d2rq:classDefinitionLabel "author";
 	.
 
-map:autore_autore 
-    rdf:type d2rq:PropertyBridge;
+map:autoreAppellationloValue a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:autoreAppellation;
-	d2rq:column  "autore.autore";
-	d2rq:property rdfs:label;
-	d2rq:property crm:P1_is_identified_by;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "autore.autore";
+ 
 	.
 
 # Table documentoNUR
@@ -69,69 +74,207 @@ map:documentoNUR_ID_documento_NUR a d2rq:PropertyBridge;
 	d2rq:column "documentoNUR.ID_documento_NUR";
 	d2rq:datatype xsd:integer;
 	.
+
+#E1.Entity Antroponimi
+
 map:documentoNUR_AntroponimiCitati a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P129_is_about;
-	d2rq:propertyDefinitionLabel "documentoNUR AntroponimiCitati";
-	d2rq:column "documentoNUR.AntroponimiCitati";
+	d2rq:refersToClassMap map:documentoAntroponimi;
 	.
+
+map:documentoAntroponimi a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/antroponimi/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E1.Entity;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoAntroponimiValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoAntroponimi;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.AntroponimiCitati";
+ 
+	.
+
+#E1.Entity Attributi Toponimi Generali
+
 map:documentoNUR_AttributiToponimiGenerali a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P129_is_about;
-	d2rq:propertyDefinitionLabel "documentoNUR AttributiToponimiGenerali";
-	d2rq:column "documentoNUR.AttributiToponimiGenerali";
+	d2rq:refersToClassMap map:documentoAttributiToponimi;
 	.
+
+map:documentoAttributiToponimi a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/attributi_toponimi/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E1.Entity;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoAttributiToponimiValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoAntroponimi;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.AttributiToponimiGenerali";
+ 
+	.
+
+#E53.Place former_location
+
 map:documentoNUR_CollocazioneArchivistica a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P53_has_former_or_current_location ;
-	d2rq:propertyDefinitionLabel "documentoNUR CollocazioneArchivistica";
-	d2rq:column "documentoNUR.CollocazioneArchivistica";
+	d2rq:refersToClassMap map:documentoCollocazione;
 	.
+
+map:documentoCollocazione a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/collocazione_archivistica/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E53.Place;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoCollocazioneloValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoCollocazione;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.CollocazioneArchivistica";
+ 
+	.
+
+#E52.Time_Span Cronologia Contenuto
+
 map:documentoNUR_CronologiaDelContenuto a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P4_has_time_span;
-	d2rq:propertyDefinitionLabel "documentoNUR CronologiaDelContenuto";
-	d2rq:column "documentoNUR.CronologiaDelContenuto";
+	d2rq:refersToClassMap map:documentoCronologia;
 	.
+
+map:documentoCronologia a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/cronologia_contenuto/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E52.Time_Span;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoCronologiaValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoCronologia;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.CronologiaDelContenuto";
+ 
+	.
+
+#E39.Actor Destinatario documento
+
 map:documentoNUR_Destinatario a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P51_has_former_or_current_owner;
-	d2rq:propertyDefinitionLabel "documentoNUR Destinatario";
-	d2rq:column "documentoNUR.Destinatario";
+	d2rq:refersToClassMap map:documentoDestinatario;
 	.
+
+map:documentoDestinatario a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/destinatario/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E39.Actor;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoDestinatarioValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoDestinatario;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.Destinatario";
+ 
+	.
+
+
+#E40.Legal Body Ente
+
+
 map:documentoNUR_Ente a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P105_right_held_by;
-	d2rq:propertyDefinitionLabel "documentoNUR Ente";
-	d2rq:column "documentoNUR.Ente";
-	.
-map:documentoNUR_Lingua a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:documentoNUR;
-	d2rq:property crm:P72_has_language;
-	d2rq:propertyDefinitionLabel "documentoNUR Lingua";
-	d2rq:column "documentoNUR.Lingua";
+	d2rq:refersToClassMap map:documentoEnte;
 	.
 
-map:documentoNUR a d2rq:ClassMap;
+map:documentoEnte a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "documentoNUR/@@documentoNUR.Titolo@@";
-	d2rq:class crm:E35.Title;
-	d2rq:classDefinitionLabel "Title";
+	d2rq:uriPattern "documentoNUR/ente/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E72.Legal_Object;
+	d2rq:classDefinitionLabel "documentoNUR";
 	.
+
+map:documentoEnteValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoEnte;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.Ente";
+ 
+	.
+
+#E56.Language
+map:documentoNUR_Lingua a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoNUR;
+	d2rq:property crm:P72_has_language ;
+	d2rq:refersToClassMap map:documentoLingua ;
+ 
+	.
+
+map:documentoLingua a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/language/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E56.Language;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoLinguaValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoLingua;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.Lingua";
+ 
+	.
+
+#E35.Title
 
 map:documentoNUR_Titolo a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
-	d2rq:property rdfs:label;
 	d2rq:property crm:P102_has_title;
-	d2rq:propertyDefinitionLabel "documentoNUR Titolo";
-	d2rq:column "documentoNUR.Titolo";
+	d2rq:refersToClassMap map:documentoTitolo ;
+ 
 	.
+
+map:documentoTitolo a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/title/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E35.Title;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoTitoloValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoTitolo;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.Titolo";
+ 
+	.
+#E44 Place Appellation Toponimi Generali
+
 map:documentoNUR_ToponimiGenerali a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P129_is_about;
-	d2rq:propertyDefinitionLabel "documentoNUR ToponimiGenerali";
-	d2rq:column "documentoNUR.ToponimiGenerali";
+	d2rq:refersToClassMap map:documentoToponimiGenerali;
 	.
+
+map:documentoToponimiGenerali a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "documentoNUR/toponimi_generali/@@documentoNUR.ID_documento_NUR@@";
+	d2rq:class crm:E44.Place_Appellation;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoToponimiGeneraliValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:documentoToponimiGenerali;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "documentoNUR.ToponimiGenerali";
+ 
+	.
+
 map:documentoNUR_ID_Scheda__ref a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:documentoNUR;
 	d2rq:property crm:P70i_is_documented_in;
@@ -160,9 +303,24 @@ map:edizione_ID_anno_edizione a d2rq:PropertyBridge;
 map:edizione_anno_edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:edizione;
 	d2rq:property crm:P4_has_time_span;
-	d2rq:propertyDefinitionLabel "edizione anno_edizione";
-	d2rq:column "edizione.anno_edizione";
+	d2rq:refersToClassMap map:edizioneAnno;
 	.
+
+map:edizioneAnno a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "edizione/edizione_anno/@@edizione.ID_anno_edizione@@";
+	d2rq:class crm:E52.Time_Span;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:documentoedizioneAnnoloValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:edizioneAnno;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "edizione.anno_edizione";
+ 
+	.
+
+
 
 # Table edizione_evento
 map:edizione_evento a d2rq:ClassMap;
@@ -215,11 +373,7 @@ map:luogoED a d2rq:ClassMap;
 	d2rq:class crm:E53.Place;
 	d2rq:classDefinitionLabel "luogoED";
 	.
-map:luogoED__label a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:luogoED;
-	d2rq:property rdfs:label;
-	d2rq:pattern "@@luogoED.luogo_edizione@@";
-	.
+
 map:luogoED_ID_luogo_edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoED;
 	d2rq:property crm:P1_is_identified_by;
@@ -230,9 +384,23 @@ map:luogoED_ID_luogo_edizione a d2rq:PropertyBridge;
 map:luogoED_luogo_edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoED;
 	d2rq:property crm:P1_is_identified_by;
-	d2rq:propertyDefinitionLabel "luogoED luogo_edizione";
-	d2rq:column "luogoED.luogo_edizione";
+	d2rq:refersToClassMap map:luogoEdizione;
 	.
+
+map:luogoEdizione a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "luogoED/luogo/@@luogoED.ID_luogo_edizione@@";
+	d2rq:class crm:E44.Place_Appellation;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:luogoedizioneValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:luogoEdizione;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "luogoED.luogo_edizione";
+ 
+	.
+
 
 # Table luogoEM
 map:luogoEM a d2rq:ClassMap;
@@ -241,11 +409,7 @@ map:luogoEM a d2rq:ClassMap;
 	d2rq:class crm:E53.Place;
 	d2rq:classDefinitionLabel "luogoEM";
 	.
-map:luogoEM__label a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:luogoEM;
-	d2rq:property rdfs:label;
-	d2rq:pattern "@@luogoEM.luogo_emissione@@";
-	.
+
 map:luogoEM_ID_luogo_emissione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoEM;
 	d2rq:property crm:P1_is_identified_by;
@@ -256,9 +420,23 @@ map:luogoEM_ID_luogo_emissione a d2rq:PropertyBridge;
 map:luogoEM_luogo_emissione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoEM;
 	d2rq:property crm:P1_is_identified_by;
-	d2rq:propertyDefinitionLabel "luogoEM luogo_emissione";
-	d2rq:column "luogoEM.luogo_emissione";
+	d2rq:refersToClassMap map:luogoEmissione;
 	.
+
+map:luogoEmissione a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "luogoEM/luogo/@@luogoEM.ID_luogo_emissione@@";
+	d2rq:class crm:E44.Place_Appellation;
+	d2rq:classDefinitionLabel "documentoNUR";
+	.
+
+map:luogoEmissioneValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:luogoEmissione;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "luogoEM.luogo_emissione";
+ 
+	.
+
 
 # Table rogatario
 map:rogatario a d2rq:ClassMap;
@@ -267,29 +445,47 @@ map:rogatario a d2rq:ClassMap;
 	d2rq:class crm:E39.Actor;
 	d2rq:classDefinitionLabel "rogatario";
 	.
-map:rogatario__label a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:rogatario;
-	d2rq:property rdfs:label;
-	d2rq:pattern "@@rogatario.Rogatario@@";
-	.
-map:rogatario_id_rogatario a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:rogatario;
-	d2rq:property crm:P1_is_identified_by;
-	d2rq:propertyDefinitionLabel "rogatario id_rogatario";
-	d2rq:column "rogatario.id_rogatario";
-	d2rq:datatype xsd:integer;
-	.
+
+
 map:rogatario_Rogatario a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:rogatario;
 	d2rq:property crm:P1_is_identified_by;
-	d2rq:propertyDefinitionLabel "rogatario Rogatario";
-	d2rq:column "rogatario.Rogatario";
+	d2rq:refersToClassMap map:rogatarioAppellation
 	.
+
+map:rogatarioAppellation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "rogatario/appellation/@@rogatario.id_rogatario@@";
+	d2rq:class crm:E82.Actor_Appellation;
+	d2rq:classDefinitionLabel "author";
+	.
+
+map:rogatarioAppellationValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:rogatarioAppellation;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "rogatario.Rogatario";
+ 
+	.
+
+
 map:rogatario_QualificaRogatario a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:rogatario;
 	d2rq:property crm:P2_has_type;
-	d2rq:propertyDefinitionLabel "rogatario QualificaRogatario";
+	d2rq:refersToClassMap map:rogatarioQualifica;
+	.
+
+map:rogatarioQualifica a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "rogatario/qualifica/@@rogatario.id_rogatario@@";
+	d2rq:class crm:E55.Type;
+	d2rq:classDefinitionLabel "author";
+	.
+
+map:rogatarioQualificaValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:rogatarioQualifica;
+	d2rq:property crm:P90_has_value;
 	d2rq:column "rogatario.QualificaRogatario";
+ 
 	.
 
 # Table schedaCAT
@@ -299,11 +495,7 @@ map:schedaCAT a d2rq:ClassMap;
 	d2rq:class crm:E31.Document;
 	d2rq:classDefinitionLabel "schedaCAT";
 	.
-map:schedaCAT__label a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:schedaCAT;
-	d2rq:property rdfs:label;
-	d2rq:pattern "schedaCAT #@@schedaCAT.ID_Scheda@@";
-	.
+
 map:schedaCAT_ID_Scheda a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P1_is_identified_by;
@@ -314,15 +506,41 @@ map:schedaCAT_ID_Scheda a d2rq:PropertyBridge;
 map:schedaCAT_CronologiaDelContenuto a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P4_has_time_span;
-	d2rq:propertyDefinitionLabel "schedaCAT CronologiaDelContenuto";
-	d2rq:column "schedaCAT.CronologiaDelContenuto";
+	d2rq:refersToClassMap map:cronologiaContenutoCAT
 	.
+
+map:cronologiaContenutoCAT a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "schedaCAT/cronologia_contenuto/@@schedaCAT.ID_Scheda@@";
+	d2rq:class crm:E52.Time_Span;
+	d2rq:classDefinitionLabel "cronologia";
+	.
+
+map:cronologiaContenutoCATValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cronologiaContenutoCAT;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "schedaCAT.CronologiaDelContenuto";
+ 
+	.
+
 map:schedaCAT_Edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P67_refers_to;
-	d2rq:propertyDefinitionLabel "schedaCAT Edizione";
-	d2rq:column "schedaCAT.Edizione";
+	d2rq:refersToClassMap map:schedaCATEdizione;
 	.
+
+map:schedaCATEdizione a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "schedaCAT/edizione/@@schedaCAT.ID_Scheda@@";
+	d2rq:class crm:E1.Thing;
+	.
+map:schedaCATedizioneValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:schedaCATEdizione;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "schedaCAT.Edizione";
+ 
+	.
+
 map:schedaCAT_Ente a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property vocab:schedaCAT_Ente;
@@ -331,22 +549,63 @@ map:schedaCAT_Ente a d2rq:PropertyBridge;
 	.
 map:schedaCAT_Note a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
-	d2rq:property crm:P3_has_note;                       #DEFINIRE DATAPROPERTY!!!
-	d2rq:propertyDefinitionLabel "schedaCAT Note";
-	d2rq:column "schedaCAT.Note";
+	d2rq:property crm:P3_has_note;                      
+	d2rq:refersToClassMap map:schedaCATNote;
 	.
+
+map:schedaCATNote a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "schedaCAT/note/@@schedaCAT.ID_Scheda@@";
+	d2rq:class crm:E1.Thing;
+	.
+
+map:schedaCATNoteValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:schedaCATNote;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "schedaCAT.Note";
+ 
+	.
+
+
 map:schedaCAT_Oggetto a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P70_Documents;
-	d2rq:propertyDefinitionLabel "schedaCAT Oggetto";
-	d2rq:column "schedaCAT.Oggetto";
+	d2rq:refersToClassMap map:schedaOggetto;
 	.
+
+map:schedaOggetto a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "schedaCAT/oggetto/@@schedaCAT.ID_Scheda@@";
+	d2rq:class crm:E1.Thing;
+	.
+
+map:schedaOggettoValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:schedaOggetto;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "schedaCAT.Oggetto";
+ 
+	.
+
 map:schedaCAT_Titolo a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P102_has_title;
-	d2rq:propertyDefinitionLabel "schedaCAT Titolo";
-	d2rq:column "schedaCAT.Titolo";
+	d2rq:refersToClassMap map:schedaTitolo;
 	.
+
+map:schedaTitolo a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "schedaCAT/titolo/@@schedaCAT.ID_Scheda@@";
+	d2rq:class crm:E35.Title;
+	.
+
+map:schedaTitoloValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:schedaTitolo;
+	d2rq:property crm:P90_has_value;
+	d2rq:column "schedaCAT.Titolo";
+	d2rq:property rdfs:label;
+ 
+	.
+
 
 # Table stipula
 map:stipula a d2rq:ClassMap;
