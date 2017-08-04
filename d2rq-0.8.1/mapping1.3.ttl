@@ -281,7 +281,9 @@ map:documentoNUR_ID_Scheda__ref a d2rq:PropertyBridge;
 	d2rq:refersToClassMap map:schedaCAT;
 	d2rq:join "documentoNUR.ID_Scheda => schedaCAT.ID_Scheda";
 	.
+
 # Table edizione
+
 map:edizione a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "edizione/@@edizione.ID_anno_edizione@@";
@@ -300,6 +302,9 @@ map:edizione_ID_anno_edizione a d2rq:PropertyBridge;
 	d2rq:column "edizione.ID_anno_edizione";
 	d2rq:datatype xsd:integer;
 	.
+
+#E52.Time_Span - anno edizione
+
 map:edizione_anno_edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:edizione;
 	d2rq:property crm:P4_has_time_span;
@@ -334,6 +339,7 @@ map:edizione_evento__label a d2rq:PropertyBridge;
 	d2rq:property rdfs:label;
 	d2rq:pattern "edizione_evento #@@edizione_evento.ID_edizione_evento@@";
 	.
+
 map:edizione_evento_ID_edizione_evento a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:edizione_evento;
 	d2rq:property crm:P1_is_identified_by;
@@ -341,6 +347,7 @@ map:edizione_evento_ID_edizione_evento a d2rq:PropertyBridge;
 	d2rq:column "edizione_evento.ID_edizione_evento";
 	d2rq:datatype xsd:integer;
 	.
+
 map:edizione_evento_ID_luogo_edizione__ref a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:edizione_evento;
 	d2rq:property crm:P7_took_place_at;
@@ -381,6 +388,9 @@ map:luogoED_ID_luogo_edizione a d2rq:PropertyBridge;
 	d2rq:column "luogoED.ID_luogo_edizione";
 	d2rq:datatype xsd:integer;
 	.
+
+# E44 Place Appellation - Luogo Edizione -
+
 map:luogoED_luogo_edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoED;
 	d2rq:property crm:P1_is_identified_by;
@@ -417,6 +427,10 @@ map:luogoEM_ID_luogo_emissione a d2rq:PropertyBridge;
 	d2rq:column "luogoEM.ID_luogo_emissione";
 	d2rq:datatype xsd:integer;
 	.
+
+
+#E44.Place Appellation -luogo emissione-
+
 map:luogoEM_luogo_emissione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:luogoEM;
 	d2rq:property crm:P1_is_identified_by;
@@ -447,6 +461,15 @@ map:rogatario a d2rq:ClassMap;
 	.
 
 
+map:rogatario__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:rogatario;
+	d2rq:property rdfs:label;
+	d2rq:pattern "@@rogatario.Rogatario@@";
+	.
+
+
+#E39.Actor - Rogatario -
+
 map:rogatario_Rogatario a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:rogatario;
 	d2rq:property crm:P1_is_identified_by;
@@ -467,6 +490,8 @@ map:rogatarioAppellationValue a d2rq:PropertyBridge;
  
 	.
 
+
+#E55.Type -Qualifica rogatario-
 
 map:rogatario_QualificaRogatario a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:rogatario;
@@ -503,6 +528,10 @@ map:schedaCAT_ID_Scheda a d2rq:PropertyBridge;
 	d2rq:column "schedaCAT.ID_Scheda";
 	d2rq:datatype xsd:integer;
 	.
+
+
+#E52.TimeSpan -cronologia del contenuto-
+
 map:schedaCAT_CronologiaDelContenuto a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P4_has_time_span;
@@ -522,6 +551,8 @@ map:cronologiaContenutoCATValue a d2rq:PropertyBridge;
 	d2rq:column "schedaCAT.CronologiaDelContenuto";
  
 	.
+
+#E1.Thing -edizione-
 
 map:schedaCAT_Edizione a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
@@ -547,6 +578,9 @@ map:schedaCAT_Ente a d2rq:PropertyBridge;
 	d2rq:propertyDefinitionLabel "schedaCAT Ente";
 	d2rq:column "schedaCAT.Ente";
 	.
+
+#E1.Thing -note-
+
 map:schedaCAT_Note a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
 	d2rq:property crm:P3_has_note;                      
@@ -566,6 +600,7 @@ map:schedaCATNoteValue a d2rq:PropertyBridge;
  
 	.
 
+#E1.Thing -oggetto del documento/scheda-
 
 map:schedaCAT_Oggetto a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
@@ -585,6 +620,8 @@ map:schedaOggettoValue a d2rq:PropertyBridge;
 	d2rq:column "schedaCAT.Oggetto";
  
 	.
+
+#E35.Title -Titolo scheda-
 
 map:schedaCAT_Titolo a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:schedaCAT;
@@ -608,6 +645,9 @@ map:schedaTitoloValue a d2rq:PropertyBridge;
 
 
 # Table stipula
+
+# Definito per ora un E52 unico per giorno/anno/mese DA VALUTARE SE CREARE 3 CLASSI DISTINTE
+
 map:stipula a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "stipula/@@stipula.ID_stipula@@";
