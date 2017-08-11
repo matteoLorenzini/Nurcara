@@ -370,7 +370,8 @@ map:edizione_evento_id_autore__ref a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:edizione_evento;
 	d2rq:property crm:P11_participated_in;
 	d2rq:refersToClassMap map:autore;
-	d2rq:join "edizione_evento.id_autore => autore.id_autore";
+	#d2rq:join "edizione_evento.id_autore => autore.id_autore";
+    d2rq:join "autore.id_autore => edizione_evento.id_autore";
 	.
 
 # Table luogoED
@@ -378,6 +379,7 @@ map:luogoED a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "luogoED/@@luogoED.ID_luogo_edizione@@";
 	d2rq:class crm:E53.Place;
+	
 	d2rq:classDefinitionLabel "luogoED";
 	.
 
@@ -389,6 +391,11 @@ map:luogoED_ID_luogo_edizione a d2rq:PropertyBridge;
 	d2rq:datatype xsd:integer;
 	.
 
+map:luodoED__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:luogoED;
+	d2rq:property rdfs:label;
+	d2rq:pattern "@@luogoED.luogo_edizione@@";
+.
 # E44 Place Appellation - Luogo Edizione -
 
 map:luogoED_luogo_edizione a d2rq:PropertyBridge;
@@ -726,12 +733,12 @@ map:stipula_evento_ID_stipula__ref a d2rq:PropertyBridge;
 	.
 map:stipula_evento_id_rogatario__ref a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:stipula_evento;
-	d2rq:property vocab:stipula_evento_id_rogatario;
+	d2rq:property crm:P11_participated_in;
 	d2rq:refersToClassMap map:rogatario;
 	d2rq:join "stipula_evento.id_rogatario => rogatario.id_rogatario";
 	.
 
-
+############
 
 
 

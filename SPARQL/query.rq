@@ -8,12 +8,56 @@ PREFIX db: <http://localhost:2020/resource/>
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 
 
-#In D2RQ sparql endpoint don't copy the PREFIX. The're already in by default ;) .
+#In D2RQ sparql end-point prefix are already in by default ;) .
 
 
-select ?event 
-where {?event crm:P7_took_place_at ?place.
+SELECT ?event 
+WHERE {?event crm:P7_took_place_at ?place.
        ?place rdf:type crm:E53.Place;
               crm:P1_is_identified_by ?appellation.
        ?appellation rdf:type crm:E44.Place_Appellation;
-              crm:P90_has_value "Monteleone". }
+		    crm:P90_has_value "Monteleone". }
+
+
+
+
+##All the events performed by "Pere Sabater" in Cagliari (Fix inverse relation P11 in CIDOC-CRM)
+
+SELECT ?author  ?edition ?place
+
+WHERE {
+  
+        ?author rdfs:label "Pere Sabater" .
+        ?edition crm:P11_participated_in ?author.
+        ?edition rdf:type crm:E5.Event.
+        ?edition crm:P7_took_place_at ?place.
+        ?place crm:P1_is_identified_by ?appellation.
+        ?appellation crm:P90_has_value "Cagliari".
+}
+
+
+#All the events performed by "D'Arienzo, L." in Padova (Fix inverse relation P11 in CIDOC-CRM)
+
+SELECT ?author  ?edition ?place
+
+WHERE {
+  
+        ?author rdfs:label "D'Arienzo, L." .
+        ?edition crm:P11_participated_in ?author.
+        ?edition rdf:type crm:E5.Event.
+        ?edition crm:P7_took_place_at ?place.
+        ?place crm:P1_is_identified_by ?appellation.
+        ?appellation crm:P90_has_value "Padova".
+        
+}
+
+
+## All the events perforled in Cagliari.
+        
+SELECT ?event ?place
+
+WHERE {?event rdf:type crm:E5.Event;
+              crm:P7_took_place_at ?place.
+       ?place rdf:type crm:E53.Place;
+              crm:P1_is_identified_by ?appellation.
+       ?appellation crm:P90_has_value "Cagliari".}
