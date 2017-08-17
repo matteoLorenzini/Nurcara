@@ -25,6 +25,7 @@ WHERE {?event crm:P7_took_place_at ?place.
 
 SELECT ?author  ?edition ?place
 
+
 WHERE {
   
         ?author rdfs:label "Pere Sabater" .
@@ -61,3 +62,4 @@ WHERE {?event rdf:type crm:E5.Event;
        ?place rdf:type crm:E53.Place;
               crm:P1_is_identified_by ?appellation.
        ?appellation crm:P90_has_value "Cagliari".}
+###################################################################
