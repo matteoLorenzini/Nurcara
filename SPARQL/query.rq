@@ -16,7 +16,8 @@ WHERE {?event crm:P7_took_place_at ?place.
        ?place rdf:type crm:E53.Place;
               crm:P1_is_identified_by ?appellation.
        ?appellation rdf:type crm:E44.Place_Appellation;
-		    crm:P90_has_value "Monteleone". }
+		    crm:P90_has_value "Monteleone".
+                     }
 
 
 
